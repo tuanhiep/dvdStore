@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    <context-param>
+        <description>related to dvd images</description>
+        <param-name>dvdImagePath</param-name>
+        <param-value>img/dvd/</param-value>
+    </context-param>
+    <context-param>
+        <description>This is deliverySurcharge for all "commande" of DVDStore </description>
+        <param-name>deliverySurcharge</param-name>
+        <param-value>4.00</param-value>
+    </context-param>
+    <session-config>
+        <session-timeout>10</session-timeout>
+    </session-config>
+    <jsp-config>
+        <jsp-property-group>
+            <description>Header and footer settings</description>
+            <url-pattern>/index.jsp</url-pattern>
+            <url-pattern>/WEB-INF/view/*</url-pattern>
+            <include-prelude>/WEB-INF/jspf/header.jspf</include-prelude>
+            <include-coda>/WEB-INF/jspf/footer.jspf</include-coda>
+        </jsp-property-group>
+        <jsp-property-group>
+            <description>JSP configuration for the admin console</description>
+            <url-pattern>/adminStore/index.jsp</url-pattern>
+            <url-pattern>/adminStore/login.jsp</url-pattern>
+            <url-pattern>/adminStore/error.jsp</url-pattern>
+            <include-prelude>/adminStore/jspf/header.jspf</include-prelude>
+            <include-coda>/adminStore/jspf/footer.jspf</include-coda>
+        </jsp-property-group>
+    </jsp-config>
+    <security-constraint>
+        <display-name>Constraint1</display-name>
+        <web-resource-collection>
+            <web-resource-name>DVDStore Administration </web-resource-name>
+            <description/>
+            <url-pattern>/adminStore/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <description/>
+            <role-name>DVDStoreAdmin</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <form-login-config>
+            <form-login-page>/adminStore/jspf/login.jsp</form-login-page>
+            <form-error-page>/adminStore/jspf/error.jsp</form-error-page>
+        </form-login-config>
+    </login-config>
+    <security-role>
+        <description>This is admin role for DVDStore</description>
+        <role-name>DVDStoreAdmin</role-name>
+    </security-role>
+    <resource-ref>
+        <res-ref-name>jdbc/dvdstore</res-ref-name>
+        <res-type>javax.sql.ConnectionPoolDataSource</res-type>
+        <res-auth>Container</res-auth>
+        <res-sharing-scope>Shareable</res-sharing-scope>
+    </resource-ref>
+</web-app>
